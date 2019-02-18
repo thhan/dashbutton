@@ -7,16 +7,16 @@ const DashButtons = {
 };
 
 function scan(ops) {
-  var ans = [];
+  let ans = [];
   return new Promise(function(response, reject) {
     exec('arp-scan -l -I ' + ops.dev, function(err, stdout, stderr) {
       if (err) {
         console.log("child processes failed with error code: " +
                     err.code + stderr);
       }
-      var net = stdout.split('\n');
-      for (var i = 2; i < net.length - 4; i++) {
-        var chunk = net[i].split('\t');
+      let net = stdout.split('\n');
+      for (let i = 2; i < net.length - 4; i++) {
+        let chunk = net[i].split('\t');
         ans.push({'ip' : chunk[0], 'mac' : chunk[1].toUpperCase(), 'vendor' : chunk[2]});
       }
       response(ans);
